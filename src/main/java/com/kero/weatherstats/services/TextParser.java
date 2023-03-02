@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Scanner;
 
-public class Parser {
+public class TextParser {
 
     // A method that takes a file name as input and returns an ArrayList of ArrayLists containing the data
     // The file must be tab-delimited

@@ -4,6 +4,7 @@ module com.kero.weatherstats {
     requires com.microsoft.sqlserver.jdbc;
     requires java.sql;
     requires java.naming;
+    requires MaterialFX;
 
     exports com.kero.weatherstats.dao;
     opens com.kero.weatherstats.dao to javafx.fxml;

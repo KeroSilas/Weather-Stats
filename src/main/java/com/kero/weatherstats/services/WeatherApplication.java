@@ -11,8 +11,10 @@ public class WeatherApplication extends Application {
     @Override
     public void start(Stage stage) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/com/kero/weatherstats/WeatherStats.fxml"));
-        Scene scene = new Scene(fxmlLoader.load(), 320, 240);
-        stage.setTitle("Hello!");
+        Scene scene = new Scene(fxmlLoader.load());
+        stage.setMinHeight(565);
+        stage.setMinWidth(700);
+        stage.setTitle("DMI Weather Statistics");
         stage.setScene(scene);
         stage.show();
     }
