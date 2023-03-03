@@ -2,44 +2,52 @@
 
 <?import io.github.palexdev.materialfx.controls.MFXComboBox?>
 <?import io.github.palexdev.materialfx.controls.MFXDatePicker?>
-<?import io.github.palexdev.materialfx.controls.MFXScrollPane?>
 <?import javafx.geometry.Insets?>
+<?import javafx.scene.chart.CategoryAxis?>
+<?import javafx.scene.chart.LineChart?>
+<?import javafx.scene.chart.NumberAxis?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.Separator?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="520.0" prefWidth="675.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.kero.weatherstats.controllers.WeatherController">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="650.0" prefWidth="850.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.kero.weatherstats.controllers.WeatherController">
    <top>
-      <HBox fx:id="hBox" alignment="CENTER_LEFT" spacing="8.0" style="-fx-border-color: #e3e3e3;" BorderPane.alignment="CENTER">
+      <HBox alignment="CENTER_LEFT" spacing="8.0" style="-fx-border-color: #d2d2d2;" BorderPane.alignment="CENTER">
          <BorderPane.margin>
             <Insets />
          </BorderPane.margin>
          <children>
-            <MFXComboBox fx:id="stationComboBox" prefWidth="175.0" />
-            <MFXComboBox fx:id="typeComboBox" prefWidth="175.0" />
+            <MFXComboBox fx:id="stationComboBox" floatingText="Station" maxHeight="44.0" minHeight="44.0" prefHeight="44.0" prefWidth="185.0">
+               <font>
+                  <Font name="Roboto" size="12.0" />
+               </font></MFXComboBox>
+            <MFXComboBox fx:id="typeComboBox" floatingText="Data type" maxHeight="44.0" minHeight="44.0" prefHeight="44.0" prefWidth="185.0">
+               <font>
+                  <Font name="Roboto" size="12.0" />
+               </font></MFXComboBox>
          </children>
          <padding>
             <Insets bottom="8.0" left="8.0" right="8.0" top="8.0" />
          </padding>
       </HBox>
    </top>
-   <center>
-      <MFXScrollPane fitToWidth="true" focusTraversable="false" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="0.0" prefWidth="0.0" BorderPane.alignment="CENTER">
-         <content>
-            <VBox fx:id="chartPane" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" />
-         </content>
-      </MFXScrollPane>
-   </center>
    <bottom>
-      <HBox alignment="CENTER_LEFT" spacing="8.0" style="-fx-border-color: #e3e3e3;" BorderPane.alignment="CENTER">
+      <HBox alignment="CENTER_LEFT" spacing="8.0" style="-fx-border-color: #d2d2d2;" BorderPane.alignment="CENTER">
          <BorderPane.margin>
             <Insets />
          </BorderPane.margin>
          <children>
-            <MFXDatePicker fx:id="startDate" prefWidth="175.0" />
-            <MFXDatePicker fx:id="endDate" prefWidth="175.0" />
+            <MFXDatePicker fx:id="startDate" floatMode="INLINE" floatingText="Start date" maxHeight="44.0" minHeight="44.0" prefHeight="44.0" prefWidth="185.0">
+               <font>
+                  <Font name="Roboto" size="12.0" />
+               </font></MFXDatePicker>
+            <MFXDatePicker fx:id="endDate" floatMode="INLINE" floatingText="End date" maxHeight="44.0" minHeight="44.0" prefHeight="44.0" prefWidth="185.0">
+               <font>
+                  <Font name="Roboto" size="12.0" />
+               </font></MFXDatePicker>
          </children>
          <padding>
             <Insets bottom="8.0" left="8.0" right="8.0" top="8.0" />
@@ -52,16 +60,50 @@
             <Insets />
          </BorderPane.margin>
          <children>
-            <Separator orientation="VERTICAL" prefHeight="200.0" />
-            <VBox prefWidth="150.0" spacing="8.0" style="-fx-background-color: white;">
+            <Separator orientation="VERTICAL" prefHeight="200.0" style="-fx-background-color: white;" />
+            <VBox prefWidth="175.0" spacing="8.0" style="-fx-background-color: white;">
                <children>
-                  <Label fx:id="averageLabel" text="Label" />
-                  <Label fx:id="medianLabel" text="Label" />
-                  <Label fx:id="averageMedianLabel" text="Label" />
-                  <Separator prefWidth="200.0" />
-                  <Label text="Label" />
-                  <Label text="Label" />
-                  <Label text="Label" />
+                  <Label fx:id="averageLabel" text="Label">
+                     <font>
+                        <Font name="Roboto" size="12.0" />
+                     </font></Label>
+                  <Label fx:id="medianLabel" text="Label">
+                     <font>
+                        <Font name="Roboto" size="12.0" />
+                     </font></Label>
+                  <Label fx:id="averageMedianLabel" text="Label">
+                     <font>
+                        <Font name="Roboto" size="12.0" />
+                     </font></Label>
+                  <Label text="Label">
+                     <font>
+                        <Font name="Roboto" size="12.0" />
+                     </font></Label>
+                  <Label text="Label">
+                     <font>
+                        <Font name="Roboto" size="12.0" />
+                     </font></Label>
+                  <Separator prefWidth="200.0" style="-fx-background-color: white;" />
+                  <Label text="Label">
+                     <font>
+                        <Font name="Roboto" size="12.0" />
+                     </font>
+                  </Label>
+                  <Label text="Label">
+                     <font>
+                        <Font name="Roboto" size="12.0" />
+                     </font>
+                  </Label>
+                  <Label text="Label">
+                     <font>
+                        <Font name="Roboto" size="12.0" />
+                     </font>
+                  </Label>
+                  <Label text="Label">
+                     <font>
+                        <Font name="Roboto" size="12.0" />
+                     </font>
+                  </Label>
                </children>
                <padding>
                   <Insets bottom="8.0" left="8.0" right="8.0" top="8.0" />
@@ -70,4 +112,17 @@
          </children>
       </HBox>
    </right>
+   <center>
+      <LineChart fx:id="lineChart" style="-fx-background-color: white;" BorderPane.alignment="CENTER">
+        <xAxis>
+          <CategoryAxis side="BOTTOM" />
+        </xAxis>
+        <yAxis>
+          <NumberAxis side="LEFT" />
+        </yAxis>
+         <padding>
+            <Insets bottom="8.0" left="8.0" right="8.0" top="8.0" />
+         </padding>
+      </LineChart>
+   </center>
 </BorderPane>
