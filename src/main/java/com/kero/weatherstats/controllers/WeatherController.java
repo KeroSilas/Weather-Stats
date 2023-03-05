@@ -55,12 +55,14 @@ public class WeatherController {
             if(startDate.getValue().isAfter(endDate.getValue())) {
                 endDate.setValue(startDate.getValue()); // Adjust end date if start date is after end date
             }
+            updateChartData();
         });
 
         endDate.setOnAction(e -> {
             if(startDate.getValue().isAfter(endDate.getValue())) {
                 startDate.setValue(endDate.getValue()); // Adjust start date if end date is before start date
             }
+            updateChartData();
         });
     }
 
@@ -70,26 +72,47 @@ public class WeatherController {
         XYChart.Series<String, Number> series3 = new XYChart.Series<>();
         Axis<String> xAxis = lineChart.getXAxis();
         Axis<Number> yAxis = lineChart.getYAxis();
-        xAxis.setLabel("Day of the month");
+
+        // If startDate and endDate difference is 0, then set the xAxis to show hours instead of days
+        boolean isSameDay = startDate.getValue().getDayOfMonth() == endDate.getValue().getDayOfMonth();
+        if(isSameDay) {
+            xAxis.setLabel("Hour of the day");
+        } else {
+            xAxis.setLabel("Day of the month");
+        }
 
         switch (typeComboBox.getValue()) {
+
             case "Temperature" -> {
                 series1.setName("Minimum temperature");
                 series2.setName("Average temperature");
                 series3.setName("Maximum temperature");
                 yAxis.setLabel("Celsius");
 
-                /*for (int i = 0; i < DATA; i++) {
-                    series1.getData().set(new XYChart.Data<>(DATA, DATA));
-                }*/
+                if(isSameDay) {
+                    /*for (int i = 0; i < DATA; i++) {
+                        series1.getData().set(new XYChart.Data<>(DATA, DATA));
+                        series2.getData().set(new XYChart.Data<>(DATA, DATA));
+                        series3.getData().set(new XYChart.Data<>(DATA, DATA));
+                    }*/
+                } else {
+                    /*for (int i = 0; i < DATA; i++) {
+                        series1.getData().set(new XYChart.Data<>(DATA, DATA));
+                        series2.getData().set(new XYChart.Data<>(DATA, DATA));
+                        series3.getData().set(new XYChart.Data<>(DATA, DATA));
+                    }*/
+                }
+
                 lineChart.getData().setAll(series1, series2, series3);
             }
+
             case "Precipitation" -> {
                 series1.setName("Precipitation");
                 yAxis.setLabel("Minutes");
 
                 lineChart.getData().setAll(series1);
             }
+
             case "Wind" -> {
                 series1.setName("Average wind speed");
                 series2.setName("Maximum wind speed");
@@ -97,18 +120,21 @@ public class WeatherController {
 
                 lineChart.getData().setAll(series1, series2);
             }
+
             case "Sunshine" -> {
                 series1.setName("Sunshine");
                 yAxis.setLabel("Strength");
 
                 lineChart.getData().setAll(series1);
             }
+
             case "Cloud cover" -> {
                 series1.setName("Cloud cover");
                 yAxis.setLabel("Percentage");
 
                 lineChart.getData().setAll(series1);
             }
+
             case "Cloud height" -> {
                 series1.setName("Cloud height");
                 yAxis.setLabel("Meters");
