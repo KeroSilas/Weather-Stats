@@ -1,7 +1,7 @@
 package com.kero.weatherstats.model;
 
 import java.util.ArrayList;
-
+// Commit drillede lidt så Silas skulle ordne det for mig, ellers så har jeg lavet det (Adman)
 public class AverageStrategy implements Strategy {
     @Override
     public double calculate(ArrayList<Integer> list) {
