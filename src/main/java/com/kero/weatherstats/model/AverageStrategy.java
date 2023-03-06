@@ -18,3 +18,4 @@ public class AverageStrategy implements Strategy {
         return (double) sum / list.size();
     }
 }
+// ye
