@@ -17,7 +17,8 @@ public class Calculator {
     }
 
     // The method that performs the calculation using the current strategy
-    public double executeStrategy(ArrayList<Integer>list) {
+    public double calculate(ArrayList<Double> list, Strategy strategy) {
+        this.strategy = strategy;
         return this.strategy.calculate(list);
     }
 }

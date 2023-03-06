@@ -5,31 +5,19 @@ import java.util.Date;
 
 public class WeatherData {
 
-private int weatherID;
-
-private int stationID;
-
-private LocalDateTime data_Time;
-
-private double precip;
-
-private double precip_minutes;
-
-private double avg_temp;
-
-private double max_temp;
-
-private double min_temp;
-
-private double sunshine;
-
-private double avg_windspeed;
-
-private double max_windspeed;
-
-private int cloud_height;
-
-private int cloud_cover;
+private final int weatherID;
+private final int stationID;
+private final LocalDateTime data_Time;
+private final double precip;
+private final double precip_minutes;
+private final double avg_temp;
+private final double max_temp;
+private final double min_temp;
+private final double sunshine;
+private final double avg_windspeed;
+private final double max_windspeed;
+private final int cloud_height;
+private final int cloud_cover;
 
     public WeatherData(int weatherID, int stationID, LocalDateTime data_Time, double precip, double precip_minutes, double avg_temp, double max_temp, double min_temp, double sunshine, double avg_windspeed, double max_windspeed, int cloud_height, int cloud_cover) {
         this.weatherID = weatherID;

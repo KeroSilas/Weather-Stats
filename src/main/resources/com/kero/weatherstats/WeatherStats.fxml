@@ -68,7 +68,7 @@
                <children>
                   <Label text="Weather Analysis">
                      <font>
-                        <Font name="Roboto Medium" size="15.0" />
+                        <Font name="System Bold" size="15.0" />
                      </font>
                   </Label>
                   <VBox fx:id="weatherVbox" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" spacing="8.0" />
@@ -79,7 +79,7 @@
                   </Separator>
                   <Label text="Station information">
                      <font>
-                        <Font name="Roboto Medium" size="15.0" />
+                        <Font name="System Bold" size="15.0" />
                      </font>
                   </Label>
                   <VBox fx:id="stationVbox" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" spacing="8.0" VBox.vgrow="ALWAYS" />

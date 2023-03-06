@@ -5,7 +5,7 @@ import java.util.Collections;
 // Commit drillede lidt så Silas skulle ordne det for mig, ellers så har jeg lavet det (Adman).
 public class MedianStrategy implements Strategy {
     @Override
-    public double calculate(ArrayList<Integer> list) {
+    public double calculate(ArrayList<Double> list) {
         // Check if list is empty
         if (list.isEmpty()) {
             return 0;
