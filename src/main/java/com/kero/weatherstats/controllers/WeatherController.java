@@ -1,5 +1,9 @@
 package com.kero.weatherstats.controllers;
 
+import com.kero.weatherstats.model.AverageMedianStrategy;
+import com.kero.weatherstats.model.AverageStrategy;
+import com.kero.weatherstats.model.Calculator;
+import com.kero.weatherstats.model.MedianStrategy;
 import io.github.palexdev.materialfx.controls.MFXComboBox;
 import io.github.palexdev.materialfx.controls.MFXDatePicker;
 import javafx.application.Platform;
@@ -11,6 +15,8 @@ import javafx.scene.chart.LineChart;
 import javafx.scene.chart.XYChart;
 import javafx.scene.control.Label;
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.Collections;
 
 public class WeatherController {
 
