@@ -58,8 +58,8 @@ public class WeatherController {
         startDate.setValue(LocalDate.of(2023, 1, 1));
         endDate.setValue(LocalDate.of(2023, 1, 31));
 
-        stationComboBox.setOnAction(e -> updateChartData());
-        typeComboBox.setOnAction(e -> updateChartData());
+        stationComboBox.setOnAction(e -> updateChartData()); // Update chart data when station is changed
+        typeComboBox.setOnAction(e -> updateChartData()); // Update chart data when type is changed
 
         startDate.setOnAction(e -> {
             if(startDate.getValue().isAfter(endDate.getValue())) {
@@ -77,6 +77,7 @@ public class WeatherController {
         updateChartData();
     }
 
+    // Responsible for updating and showing the data on the line chart
     private void updateChartData() {
 
         weatherVbox.getChildren().clear();
@@ -88,18 +89,18 @@ public class WeatherController {
         Axis<String> xAxis = lineChart.getXAxis();
         Axis<Double> yAxis = lineChart.getYAxis();
 
-        // Get data range
+        // Get the date that is in the given time range
         ArrayList<WeatherData> dataRange = new ArrayList<>();
         for (WeatherData data : weatherData) {
             if(data.getStationID() == stationComboBox.getValue().getStationID()
                     && data.getData_Time().isAfter(startDate.getValue().atStartOfDay().minusHours(1))
-                    && data.getData_Time().isBefore(endDate.getValue().atStartOfDay().plusDays(1))) {
+                    && data.getData_Time().isBefore(endDate.getValue().atStartOfDay().plusDays(1))) { // If the data is from the selected station and is in the given time range
                 dataRange.add(data);
             }
         }
 
         // If startDate and endDate difference is 0, then set the xAxis to show hours instead of days
-        boolean isSameDay = startDate.getValue().getDayOfMonth() == endDate.getValue().getDayOfMonth();
+        boolean isSameDay = startDate.getValue().getDayOfMonth() == endDate.getValue().getDayOfMonth(); // If the start and end date is the same day
         if(isSameDay) {
             xAxis.setLabel("Hour of the day");
         } else {
@@ -122,26 +123,26 @@ public class WeatherController {
 
                 // Set the data for the chart
                 for (WeatherData data : dataRange) {
-                    if(isSameDay) {
+                    if(isSameDay) { // If the date range is the same day
                         series1.getData().add(new XYChart.Data<>(String.valueOf(data.getData_Time().getHour()), data.getMin_temp()));
                         series2.getData().add(new XYChart.Data<>(String.valueOf(data.getData_Time().getHour()), data.getAvg_temp()));
                         series3.getData().add(new XYChart.Data<>(String.valueOf(data.getData_Time().getHour()), data.getMax_temp()));
-                    } else {
+                    } else { // If the date range is more than one day
                         double minTemp = dataRange.get(0).getMin_temp();
                         double maxTemp = dataRange.get(0).getMax_temp();
                         double avgTemp = 0;
                         int count = 0;
                         for (WeatherData data2 : dataRange) {
-                            if(data2.getData_Time().getDayOfMonth() == data.getData_Time().getDayOfMonth()) {
+                            if(data2.getData_Time().getDayOfMonth() == data.getData_Time().getDayOfMonth()) { // If the data is from the same day
                                 minTemp = Math.min(minTemp, data2.getMin_temp());
                                 maxTemp = Math.max(maxTemp, data2.getMax_temp());
-                                avgTemp += data2.getAvg_temp();
-                                count++;
+                                avgTemp += data2.getAvg_temp(); // Sum all the average temperatures for the day
+                                count++; // Count the number of data points for the day, used to calculate average later
                             }
                         }
-                        series1.getData().add(new XYChart.Data<>(String.valueOf(data.getData_Time().getDayOfMonth()), minTemp));
-                        series2.getData().add(new XYChart.Data<>(String.valueOf(data.getData_Time().getDayOfMonth()), avgTemp / count));
-                        series3.getData().add(new XYChart.Data<>(String.valueOf(data.getData_Time().getDayOfMonth()), maxTemp));
+                        series1.getData().add(new XYChart.Data<>(String.valueOf(data.getData_Time().getDayOfMonth()), minTemp)); // Add the minimum temperature for the day
+                        series2.getData().add(new XYChart.Data<>(String.valueOf(data.getData_Time().getDayOfMonth()), avgTemp / count)); // Add the average temperature for the day
+                        series3.getData().add(new XYChart.Data<>(String.valueOf(data.getData_Time().getDayOfMonth()), maxTemp)); // Add the maximum temperature for the day
                     }
                 }
                 lineChart.getData().setAll(series1, series2, series3);
@@ -149,15 +150,15 @@ public class WeatherController {
                 // Set the data for the weatherVbox
                 ArrayList<Double> tempData1 = new ArrayList<>();
                 for (WeatherData data : dataRange) {
-                    tempData1.add(data.getMin_temp());
+                    tempData1.add(data.getMin_temp()); // Add all the minimum temperatures to the arraylist
                 }
                 ArrayList<Double> tempData2 = new ArrayList<>();
                 for (WeatherData data : dataRange) {
-                    tempData2.add(data.getAvg_temp());
+                    tempData2.add(data.getAvg_temp()); // Add all the average temperatures to the arraylist
                 }
                 ArrayList<Double> tempData3 = new ArrayList<>();
                 for (WeatherData data : dataRange) {
-                    tempData3.add(data.getMax_temp());
+                    tempData3.add(data.getMax_temp()); // Add all the maximum temperatures to the arraylist
                 }
 
                 weatherVbox.getChildren().add(new Label("Minimum: " + String.format("%.2f C", calculator.calculate(tempData1, new MinimumStrategy()))));
