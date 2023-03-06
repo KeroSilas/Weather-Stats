@@ -2,7 +2,7 @@ package com.kero.weatherstats.model;
 
 import java.util.ArrayList;
 import java.util.Collections;
-// Commit drillede lidt så Silas skulle ordne det for mig, ellers så har jeg lavet det (Adman)
+// Commit drillede lidt så Silas skulle ordne det for mig, ellers så har jeg lavet det (Adman).
 public class MedianStrategy implements Strategy {
     @Override
     public double calculate(ArrayList<Integer> list) {
