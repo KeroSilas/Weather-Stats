@@ -3,10 +3,8 @@ package com.kero.weatherstats.dao;
 import com.kero.weatherstats.model.WeatherData;
 
 import java.sql.*;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.List;
 
 public class WeatherDataDaoImpl implements WeatherDataDao{
 

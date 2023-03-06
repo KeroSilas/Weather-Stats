@@ -29,7 +29,7 @@ public class WeatherController {
     private final ObservableList<Station> stationObservableList = FXCollections.observableArrayList();
     private final ObservableList<String> typeObservableList = FXCollections.observableArrayList();
 
-    @FXML private LineChart<String, Number> lineChart;
+    @FXML private LineChart<Integer, Double> lineChart;
 
     @FXML private VBox weatherVbox;
     @FXML private VBox stationVbox;
@@ -90,11 +90,11 @@ public class WeatherController {
         weatherVbox.getChildren().clear();
         stationVbox.getChildren().clear();
 
-        XYChart.Series<String, Number> series1 = new XYChart.Series<>();
-        XYChart.Series<String, Number> series2 = new XYChart.Series<>();
-        XYChart.Series<String, Number> series3 = new XYChart.Series<>();
-        Axis<String> xAxis = lineChart.getXAxis();
-        Axis<Number> yAxis = lineChart.getYAxis();
+        XYChart.Series<Integer, Double> series1 = new XYChart.Series<>();
+        XYChart.Series<Integer, Double> series2 = new XYChart.Series<>();
+        XYChart.Series<Integer, Double> series3 = new XYChart.Series<>();
+        Axis<Integer> xAxis = lineChart.getXAxis();
+        Axis<Double> yAxis = lineChart.getYAxis();
 
         // Get data range
         ArrayList<WeatherData> dataRange = new ArrayList<>();
@@ -109,9 +109,9 @@ public class WeatherController {
 
         // If startDate and endDate difference is 0, then set the xAxis to show hours instead of days
         boolean isSameDay = startDate.getValue().getDayOfMonth() == endDate.getValue().getDayOfMonth();
+        int days = startDate.getValue().getDayOfMonth() - endDate.getValue().getDayOfMonth();
         if(isSameDay) {
             xAxis.setLabel("Hour of the day");
-
         } else {
             xAxis.setLabel("Day of the month");
         }
@@ -131,19 +131,18 @@ public class WeatherController {
                 yAxis.setLabel("Celsius");
 
                 // Set the data for the chart
-                if(isSameDay) {
-                   /*or (int i = 0; i < DATA; i++) {
-                        series1.getData().set(new XYChart.Data<>(DATA, DATA));
-                        series2.getData().set(new XYChart.Data<>(DATA, DATA));
-                        series3.getData().set(new XYChart.Data<>(DATA, DATA));
-                    }*/
-                } else {
-                    /*for (int i = 0; i < DATA; i++) {
-                        series1.getData().set(new XYChart.Data<>(DATA, DATA));
-                        series2.getData().set(new XYChart.Data<>(DATA, DATA));
-                        series3.getData().set(new XYChart.Data<>(DATA, DATA));
-                    }*/
+                for (WeatherData data : dataRange) {
+                    if(isSameDay) {
+                        series1.getData().add(new XYChart.Data<>(data.getData_Time().getHour(), data.getMin_temp()));
+                        series2.getData().add(new XYChart.Data<>(data.getData_Time().getHour(), data.getAvg_temp()));
+                        series3.getData().add(new XYChart.Data<>(data.getData_Time().getHour(), data.getMax_temp()));
+                    } else {
+                        series1.getData().add(new XYChart.Data<>(data.getData_Time().getDayOfMonth(), data.getMin_temp()));
+                        series2.getData().add(new XYChart.Data<>(data.getData_Time().getDayOfMonth(), data.getAvg_temp()));
+                        series3.getData().add(new XYChart.Data<>(data.getData_Time().getDayOfMonth(), data.getMax_temp()));
+                    }
                 }
+
                 lineChart.getData().setAll(series1, series2, series3);
 
                 // Set the data for the weatherVbox
