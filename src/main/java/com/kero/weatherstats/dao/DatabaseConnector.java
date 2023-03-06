@@ -19,7 +19,7 @@ public class DatabaseConnector {
         dataSource.setServerName("localhost");
         dataSource.setDatabaseName("WeatherDB");
         dataSource.setUser("sa");
-        dataSource.setPassword("Whatever123");
+        dataSource.setPassword("dit_SuPeR_password");
         dataSource.setTrustServerCertificate(true);
     }
 
