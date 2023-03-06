@@ -53,8 +53,8 @@ public class WeatherController {
         typeObservableList.addAll("Temperature", "Precipitation", "Wind", "Sunshine", "Cloud cover", "Cloud height");
         typeComboBox.setItems(typeObservableList);
 
-        stationComboBox.setValue(stationComboBox.getItems().get(0));
-        typeComboBox.setValue(typeComboBox.getItems().get(0));
+        stationComboBox.setValue(stationObservableList.get(0));
+        typeComboBox.setValue(typeObservableList.get(0));
         startDate.setValue(LocalDate.of(2023, 1, 1));
         endDate.setValue(LocalDate.of(2023, 1, 31));
 

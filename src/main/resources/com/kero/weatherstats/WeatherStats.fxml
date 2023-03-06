@@ -20,11 +20,11 @@
             <Insets />
          </BorderPane.margin>
          <children>
-            <MFXComboBox fx:id="stationComboBox" floatingText="Station" maxHeight="44.0" minHeight="44.0" prefHeight="44.0" prefWidth="185.0">
+            <MFXComboBox fx:id="stationComboBox" floatMode="DISABLED" floatingText="Station" maxHeight="32.0" minHeight="32.0" prefHeight="32.0" prefWidth="185.0" promptText="Station">
                <font>
                   <Font name="Roboto" size="12.0" />
                </font></MFXComboBox>
-            <MFXComboBox fx:id="typeComboBox" floatingText="Data type" maxHeight="44.0" minHeight="44.0" prefHeight="44.0" prefWidth="185.0">
+            <MFXComboBox fx:id="typeComboBox" floatMode="DISABLED" floatingText="Data type" maxHeight="32.0" minHeight="32.0" prefHeight="32.0" prefWidth="185.0" promptText="Data type">
                <font>
                   <Font name="Roboto" size="12.0" />
                </font></MFXComboBox>
@@ -40,11 +40,11 @@
             <Insets />
          </BorderPane.margin>
          <children>
-            <MFXDatePicker fx:id="startDate" floatMode="INLINE" floatingText="Start date" maxHeight="44.0" minHeight="44.0" prefHeight="44.0" prefWidth="185.0">
+            <MFXDatePicker fx:id="startDate" floatingText="Start date" maxHeight="32.0" minHeight="32.0" prefHeight="32.0" prefWidth="185.0" promptText="Start date">
                <font>
                   <Font name="Roboto" size="12.0" />
                </font></MFXDatePicker>
-            <MFXDatePicker fx:id="endDate" floatMode="INLINE" floatingText="End date" maxHeight="44.0" minHeight="44.0" prefHeight="44.0" prefWidth="185.0">
+            <MFXDatePicker fx:id="endDate" floatingText="End date" maxHeight="32.0" minHeight="32.0" prefHeight="32.0" prefWidth="185.0" promptText="End date">
                <font>
                   <Font name="Roboto" size="12.0" />
                </font></MFXDatePicker>
@@ -66,7 +66,7 @@
                   <Insets bottom="8.0" left="8.0" right="8.0" top="8.0" />
                </padding>
                <children>
-                  <Label text="Weather Analysis">
+                  <Label text="Weather statistics">
                      <font>
                         <Font name="System Bold" size="15.0" />
                      </font>
