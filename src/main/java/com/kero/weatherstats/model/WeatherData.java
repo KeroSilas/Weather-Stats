@@ -9,7 +9,7 @@ private int weatherID;
 
 private int stationID;
 
-private Date data_Time;
+private LocalDateTime data_Time;
 
 private double precip;
 
@@ -31,7 +31,7 @@ private int cloud_height;
 
 private int cloud_cover;
 
-    public WeatherData(int weatherID, int stationID, Date data_Time, double precip, double precip_minutes, double avg_temp, double max_temp, double min_temp, double sunshine, double avg_windspeed, double max_windspeed, int cloud_height, int cloud_cover) {
+    public WeatherData(int weatherID, int stationID, LocalDateTime data_Time, double precip, double precip_minutes, double avg_temp, double max_temp, double min_temp, double sunshine, double avg_windspeed, double max_windspeed, int cloud_height, int cloud_cover) {
         this.weatherID = weatherID;
         this.stationID = stationID;
         this.data_Time = data_Time;
@@ -55,7 +55,7 @@ private int cloud_cover;
         return stationID;
     }
 
-    public Date getData_Time() {
+    public LocalDateTime getData_Time() {
         return data_Time;
     }
 
