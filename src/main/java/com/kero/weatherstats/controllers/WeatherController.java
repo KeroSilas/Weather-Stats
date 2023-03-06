@@ -127,9 +127,21 @@ public class WeatherController {
                         series2.getData().add(new XYChart.Data<>(String.valueOf(data.getData_Time().getHour()), data.getAvg_temp()));
                         series3.getData().add(new XYChart.Data<>(String.valueOf(data.getData_Time().getHour()), data.getMax_temp()));
                     } else {
-                        series1.getData().add(new XYChart.Data<>(String.valueOf(data.getData_Time().getDayOfMonth()), data.getMin_temp()));
-                        series2.getData().add(new XYChart.Data<>(String.valueOf(data.getData_Time().getDayOfMonth()), data.getAvg_temp()));
-                        series3.getData().add(new XYChart.Data<>(String.valueOf(data.getData_Time().getDayOfMonth()), data.getMax_temp()));
+                        double minTemp = dataRange.get(0).getMin_temp();
+                        double maxTemp = dataRange.get(0).getMax_temp();
+                        double avgTemp = 0;
+                        int count = 0;
+                        for (WeatherData data2 : dataRange) {
+                            if(data2.getData_Time().getDayOfMonth() == data.getData_Time().getDayOfMonth()) {
+                                minTemp = Math.min(minTemp, data2.getMin_temp());
+                                maxTemp = Math.max(maxTemp, data2.getMax_temp());
+                                avgTemp += data2.getAvg_temp();
+                                count++;
+                            }
+                        }
+                        series1.getData().add(new XYChart.Data<>(String.valueOf(data.getData_Time().getDayOfMonth()), minTemp));
+                        series2.getData().add(new XYChart.Data<>(String.valueOf(data.getData_Time().getDayOfMonth()), avgTemp / count));
+                        series3.getData().add(new XYChart.Data<>(String.valueOf(data.getData_Time().getDayOfMonth()), maxTemp));
                     }
                 }
                 lineChart.getData().setAll(series1, series2, series3);
@@ -164,7 +176,15 @@ public class WeatherController {
                     if(isSameDay) {
                         series1.getData().add(new XYChart.Data<>(String.valueOf(data.getData_Time().getHour()), data.getPrecip()));
                     } else {
-                        series1.getData().add(new XYChart.Data<>(String.valueOf(data.getData_Time().getDayOfMonth()), data.getPrecip()));
+                        double precip = 0;
+                        int count = 0;
+                        for (WeatherData data2 : dataRange) {
+                            if(data2.getData_Time().getDayOfMonth() == data.getData_Time().getDayOfMonth()) {
+                                precip += data2.getPrecip();
+                                count++;
+                            }
+                        }
+                        series1.getData().add(new XYChart.Data<>(String.valueOf(data.getData_Time().getDayOfMonth()), precip / count));
                     }
                 }
                 lineChart.getData().setAll(series1);
@@ -193,8 +213,18 @@ public class WeatherController {
                         series1.getData().add(new XYChart.Data<>(String.valueOf(data.getData_Time().getHour()), data.getAvg_windspeed()));
                         series2.getData().add(new XYChart.Data<>(String.valueOf(data.getData_Time().getHour()), data.getMax_windspeed()));
                     } else {
-                        series1.getData().add(new XYChart.Data<>(String.valueOf(data.getData_Time().getDayOfMonth()), data.getAvg_windspeed()));
-                        series2.getData().add(new XYChart.Data<>(String.valueOf(data.getData_Time().getDayOfMonth()), data.getMax_windspeed()));
+                        double avgWindSpeed = 0;
+                        double maxWindSpeed = dataRange.get(0).getMax_windspeed();
+                        int count = 0;
+                        for (WeatherData data2 : dataRange) {
+                            if(data2.getData_Time().getDayOfMonth() == data.getData_Time().getDayOfMonth()) {
+                                avgWindSpeed += data2.getAvg_windspeed();
+                                maxWindSpeed = Math.max(maxWindSpeed, data2.getMax_windspeed());
+                                count++;
+                            }
+                        }
+                        series1.getData().add(new XYChart.Data<>(String.valueOf(data.getData_Time().getDayOfMonth()), avgWindSpeed / count));
+                        series2.getData().add(new XYChart.Data<>(String.valueOf(data.getData_Time().getDayOfMonth()), maxWindSpeed));
                     }
                 }
                 lineChart.getData().setAll(series1, series2);
@@ -225,7 +255,15 @@ public class WeatherController {
                     if(isSameDay) {
                         series1.getData().add(new XYChart.Data<>(String.valueOf(data.getData_Time().getHour()), data.getSunshine()));
                     } else {
-                        series1.getData().add(new XYChart.Data<>(String.valueOf(data.getData_Time().getDayOfMonth()), data.getSunshine()));
+                        double sunshine = 0;
+                        int count = 0;
+                        for (WeatherData data2 : dataRange) {
+                            if(data2.getData_Time().getDayOfMonth() == data.getData_Time().getDayOfMonth()) {
+                                sunshine += data2.getSunshine();
+                                count++;
+                            }
+                        }
+                        series1.getData().add(new XYChart.Data<>(String.valueOf(data.getData_Time().getDayOfMonth()), sunshine / count));
                     }
                 }
                 lineChart.getData().setAll(series1);
@@ -252,7 +290,15 @@ public class WeatherController {
                     if(isSameDay) {
                         series1.getData().add(new XYChart.Data<>(String.valueOf(data.getData_Time().getHour()), (double) data.getCloud_cover()));
                     } else {
-                        series1.getData().add(new XYChart.Data<>(String.valueOf(data.getData_Time().getDayOfMonth()), (double) data.getCloud_cover()));
+                        double cloudCover = 0;
+                        int count = 0;
+                        for (WeatherData data2 : dataRange) {
+                            if(data2.getData_Time().getDayOfMonth() == data.getData_Time().getDayOfMonth()) {
+                                cloudCover += data2.getCloud_cover();
+                                count++;
+                            }
+                        }
+                        series1.getData().add(new XYChart.Data<>(String.valueOf(data.getData_Time().getDayOfMonth()), cloudCover / count));
                     }
                 }
                 lineChart.getData().setAll(series1);
@@ -278,7 +324,15 @@ public class WeatherController {
                     if(isSameDay) {
                         series1.getData().add(new XYChart.Data<>(String.valueOf(data.getData_Time().getHour()), (double) data.getCloud_height()));
                     } else {
-                        series1.getData().add(new XYChart.Data<>(String.valueOf(data.getData_Time().getDayOfMonth()), (double) data.getCloud_height()));
+                        double cloudHeight = 0;
+                        int count = 0;
+                        for (WeatherData data2 : dataRange) {
+                            if(data2.getData_Time().getDayOfMonth() == data.getData_Time().getDayOfMonth()) {
+                                cloudHeight += data2.getCloud_height();
+                                count++;
+                            }
+                        }
+                        series1.getData().add(new XYChart.Data<>(String.valueOf(data.getData_Time().getDayOfMonth()), cloudHeight / count));
                     }
                 }
                 lineChart.getData().setAll(series1);
