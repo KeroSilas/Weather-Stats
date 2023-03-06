@@ -62,52 +62,28 @@
          <children>
             <Separator orientation="VERTICAL" prefHeight="200.0" style="-fx-background-color: white;" />
             <VBox prefWidth="175.0" spacing="8.0" style="-fx-background-color: white;">
-               <children>
-                  <Label fx:id="averageLabel" text="Label">
-                     <font>
-                        <Font name="Roboto" size="12.0" />
-                     </font></Label>
-                  <Label fx:id="medianLabel" text="Label">
-                     <font>
-                        <Font name="Roboto" size="12.0" />
-                     </font></Label>
-                  <Label fx:id="averageMedianLabel" text="Label">
-                     <font>
-                        <Font name="Roboto" size="12.0" />
-                     </font></Label>
-                  <Label text="Label">
-                     <font>
-                        <Font name="Roboto" size="12.0" />
-                     </font></Label>
-                  <Label text="Label">
-                     <font>
-                        <Font name="Roboto" size="12.0" />
-                     </font></Label>
-                  <Separator prefWidth="200.0" style="-fx-background-color: white;" />
-                  <Label text="Label">
-                     <font>
-                        <Font name="Roboto" size="12.0" />
-                     </font>
-                  </Label>
-                  <Label text="Label">
-                     <font>
-                        <Font name="Roboto" size="12.0" />
-                     </font>
-                  </Label>
-                  <Label text="Label">
-                     <font>
-                        <Font name="Roboto" size="12.0" />
-                     </font>
-                  </Label>
-                  <Label text="Label">
-                     <font>
-                        <Font name="Roboto" size="12.0" />
-                     </font>
-                  </Label>
-               </children>
                <padding>
                   <Insets bottom="8.0" left="8.0" right="8.0" top="8.0" />
                </padding>
+               <children>
+                  <Label text="Weather Analysis">
+                     <font>
+                        <Font name="Roboto Medium" size="15.0" />
+                     </font>
+                  </Label>
+                  <VBox fx:id="weatherVbox" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" spacing="8.0" />
+                  <Separator prefWidth="200.0">
+                     <VBox.margin>
+                        <Insets top="8.0" />
+                     </VBox.margin>
+                  </Separator>
+                  <Label text="Station information">
+                     <font>
+                        <Font name="Roboto Medium" size="15.0" />
+                     </font>
+                  </Label>
+                  <VBox fx:id="stationVbox" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" spacing="8.0" VBox.vgrow="ALWAYS" />
+               </children>
             </VBox>
          </children>
       </HBox>

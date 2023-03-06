@@ -13,11 +13,16 @@ import java.util.List;
 
 public class StationDaoImpl implements StationDao{
 
+    private final DatabaseConnector databaseConnector;
+
+    public StationDaoImpl() {
+        databaseConnector = new DatabaseConnector();
+    }
 
     @Override
-    public List<Station> getAllStations() {
-        List<Station> stations = new ArrayList();
-        try {
+    public ArrayList<Station> getAllStations() {
+        ArrayList<Station> stations = new ArrayList<>();
+        try (Connection con = databaseConnector.getConnection()) {
             PreparedStatement ps = con.prepareStatement("SELECT * FROM Station;");
             ResultSet rs = ps.executeQuery();
 
@@ -26,7 +31,7 @@ public class StationDaoImpl implements StationDao{
                 int stationID = rs.getInt(1);
                 String station_name = rs.getString(2);
                 String position = rs.getString(3);
-                Double height = rs.getDouble(4);
+                double height = rs.getDouble(4);
                 String setup_date = rs.getString(5);
 
 
@@ -40,6 +45,4 @@ public class StationDaoImpl implements StationDao{
         }
         return stations;
     }
-
-    private Connection con;
 }

@@ -1,11 +1,14 @@
 package com.kero.weatherstats.dao;
 
+import com.kero.weatherstats.services.TextParser;
+
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.LinkedHashSet;
+import java.util.Objects;
 
 public class WeatherDataImport {
 
@@ -68,5 +71,11 @@ public class WeatherDataImport {
         } catch (SQLException e) {
             e.printStackTrace();
         }
+    }
+
+    public static void main(String[] args) {
+        WeatherDataImport weatherImport = new WeatherDataImport();
+        weatherImport.importToStation(TextParser.parseFile(Objects.requireNonNull(WeatherDataImport.class.getResource("/com/kero/weatherstats/Station.txt")).getPath()));
+        weatherImport.importToWeatherData(TextParser.parseFile(Objects.requireNonNull(WeatherDataImport.class.getResource("/com/kero/weatherstats/WeatherData.txt")).getPath()));
     }
 }
