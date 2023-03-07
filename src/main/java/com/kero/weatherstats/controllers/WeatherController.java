@@ -43,16 +43,19 @@ public class WeatherController {
         WeatherDataDao weatherDataDao = new WeatherDataDaoImpl();
         StationDao stationDao = new StationDaoImpl();
 
+        // Get data from database and store it in lists
         weatherData = weatherDataDao.getAllWeatherData();
         stations = stationDao.getAllStations();
 
         calculator = new Calculator(new AverageStrategy());
 
+        // Set up combo boxes
         stationObservableList.addAll(stations);
         stationComboBox.setItems(stationObservableList);
         typeObservableList.addAll("Temperature", "Precipitation", "Wind", "Sunshine", "Cloud cover", "Cloud height");
         typeComboBox.setItems(typeObservableList);
 
+        // Set default values
         stationComboBox.setValue(stationObservableList.get(0));
         typeComboBox.setValue(typeObservableList.get(0));
         startDate.setValue(LocalDate.of(2023, 1, 1));
@@ -74,22 +77,24 @@ public class WeatherController {
             updateChartData();
         });
 
-        updateChartData();
+        updateChartData(); // Shows chart data from default values when the program is started
     }
 
-    // Responsible for updating and showing the data on the line chart
+    // Responsible for updating and showing the data on the line chart and the labels on the right side
     private void updateChartData() {
 
+        // Clear the labels from the vboxes
         weatherVbox.getChildren().clear();
         stationVbox.getChildren().clear();
 
+        // Clear the series and axis from the line chart by creating new ones
         XYChart.Series<String, Double> series1 = new XYChart.Series<>();
         XYChart.Series<String, Double> series2 = new XYChart.Series<>();
         XYChart.Series<String, Double> series3 = new XYChart.Series<>();
         Axis<String> xAxis = lineChart.getXAxis();
         Axis<Double> yAxis = lineChart.getYAxis();
 
-        // Get the date that is in the given time range
+        // Get the weather data that is in the given time range
         ArrayList<WeatherData> dataRange = new ArrayList<>();
         for (WeatherData data : weatherData) {
             if(data.getStationID() == stationComboBox.getValue().getStationID()
@@ -113,8 +118,8 @@ public class WeatherController {
         stationVbox.getChildren().add(new Label("Height: " + stationComboBox.getValue().getHeight()));
         stationVbox.getChildren().add(new Label("Setup date: " + stationComboBox.getValue().getSetup_date()));
 
+        // Depending on the type of data that is selected, set the data for the line chart and weatherVbox
         switch (typeComboBox.getValue()) {
-
             case "Temperature" -> {
                 series1.setName("Minimum temperature");
                 series2.setName("Average temperature");
@@ -147,7 +152,7 @@ public class WeatherController {
                 }
                 lineChart.getData().setAll(series1, series2, series3);
 
-                // Set the data for the weatherVbox
+                // Create temporary arraylists to store the data for the weatherVbox
                 ArrayList<Double> tempData1 = new ArrayList<>();
                 for (WeatherData data : dataRange) {
                     tempData1.add(data.getMin_temp()); // Add all the minimum temperatures to the arraylist
@@ -161,18 +166,19 @@ public class WeatherController {
                     tempData3.add(data.getMax_temp()); // Add all the maximum temperatures to the arraylist
                 }
 
-                weatherVbox.getChildren().add(new Label("Minimum: " + String.format("%.2f C", calculator.calculate(tempData1, new MinimumStrategy()))));
+                // Set the data for the weatherVbox
+                weatherVbox.getChildren().add(new Label("Minimum: " + String.format("%.2f C", calculator.calculate(tempData1, new MinimumStrategy())))); // Uses the strategy pattern to calculate the different values
                 weatherVbox.getChildren().add(new Label("Average: " + String.format("%.2f C", calculator.calculate(tempData2, new AverageStrategy()))));
                 weatherVbox.getChildren().add(new Label("Maximum: " + String.format("%.2f C", calculator.calculate(tempData3, new MaximumStrategy()))));
                 weatherVbox.getChildren().add(new Label("Median: " + String.format("%.2f C", calculator.calculate(tempData2, new MedianStrategy()))));
                 weatherVbox.getChildren().add(new Label("Average median: " + String.format("%.2f C", calculator.calculate(tempData2, new AverageMedianStrategy()))));
             }
 
+            // The process is the same for the other data types, so no comments are added below this point
             case "Precipitation" -> {
                 series1.setName("Precipitation");
                 yAxis.setLabel("Minutes");
 
-                // Set the data for the chart
                 for (WeatherData data : dataRange) {
                     if(isSameDay) {
                         series1.getData().add(new XYChart.Data<>(String.valueOf(data.getData_Time().getHour()), data.getPrecip()));
@@ -190,7 +196,6 @@ public class WeatherController {
                 }
                 lineChart.getData().setAll(series1);
 
-                // Set the data for the weatherVbox
                 ArrayList<Double> tempData1 = new ArrayList<>();
                 for (WeatherData data : dataRange) {
                     tempData1.add(data.getPrecip());
@@ -208,7 +213,6 @@ public class WeatherController {
                 series2.setName("Maximum wind speed");
                 yAxis.setLabel("Meters per second");
 
-                // Set the data for the chart
                 for (WeatherData data : dataRange) {
                     if(isSameDay) {
                         series1.getData().add(new XYChart.Data<>(String.valueOf(data.getData_Time().getHour()), data.getAvg_windspeed()));
@@ -230,7 +234,6 @@ public class WeatherController {
                 }
                 lineChart.getData().setAll(series1, series2);
 
-                // Set the data for the weatherVbox
                 ArrayList<Double> tempData1 = new ArrayList<>();
                 for (WeatherData data : dataRange) {
                     tempData1.add(data.getAvg_windspeed());
@@ -251,7 +254,6 @@ public class WeatherController {
                 series1.setName("Sunshine");
                 yAxis.setLabel("Strength");
 
-                // Set the data for the chart
                 for (WeatherData data : dataRange) {
                     if(isSameDay) {
                         series1.getData().add(new XYChart.Data<>(String.valueOf(data.getData_Time().getHour()), data.getSunshine()));
@@ -269,7 +271,6 @@ public class WeatherController {
                 }
                 lineChart.getData().setAll(series1);
 
-                // Set the data for the weatherVbox
                 ArrayList<Double> tempData1 = new ArrayList<>();
                 for (WeatherData data : dataRange) {
                     tempData1.add(data.getSunshine());
@@ -286,7 +287,6 @@ public class WeatherController {
                 series1.setName("Cloud cover");
                 yAxis.setLabel("Percentage");
 
-                // Set the data for the chart
                 for (WeatherData data : dataRange) {
                     if(isSameDay) {
                         series1.getData().add(new XYChart.Data<>(String.valueOf(data.getData_Time().getHour()), (double) data.getCloud_cover()));
@@ -304,7 +304,6 @@ public class WeatherController {
                 }
                 lineChart.getData().setAll(series1);
 
-                // Set the data for the weatherVbox
                 ArrayList<Double> tempData1 = new ArrayList<>();
                 for (WeatherData data : dataRange) {
                     tempData1.add((double) data.getCloud_cover());
@@ -320,7 +319,6 @@ public class WeatherController {
                 series1.setName("Cloud height");
                 yAxis.setLabel("Meters");
 
-                // Set the data for the chart
                 for (WeatherData data : dataRange) {
                     if(isSameDay) {
                         series1.getData().add(new XYChart.Data<>(String.valueOf(data.getData_Time().getHour()), (double) data.getCloud_height()));
@@ -338,7 +336,6 @@ public class WeatherController {
                 }
                 lineChart.getData().setAll(series1);
 
-                // Set the data for the weatherVbox
                 ArrayList<Double> tempData1 = new ArrayList<>();
                 for (WeatherData data : dataRange) {
                     tempData1.add((double) data.getCloud_height());
