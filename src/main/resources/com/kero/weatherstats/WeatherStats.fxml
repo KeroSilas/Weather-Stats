@@ -13,7 +13,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="650.0" prefWidth="850.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.kero.weatherstats.controllers.WeatherController">
+<BorderPane fx:id="borderPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="650.0" prefWidth="850.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.kero.weatherstats.controllers.WeatherController">
    <top>
       <HBox alignment="CENTER_LEFT" spacing="8.0" style="-fx-border-color: #d2d2d2;" BorderPane.alignment="CENTER">
          <BorderPane.margin>
@@ -61,7 +61,7 @@
          </BorderPane.margin>
          <children>
             <Separator orientation="VERTICAL" prefHeight="200.0" style="-fx-background-color: white;" />
-            <VBox prefWidth="175.0" spacing="8.0" style="-fx-background-color: white;">
+            <VBox fx:id="sidebarVbox" prefWidth="175.0" spacing="8.0" style="-fx-background-color: white;">
                <padding>
                   <Insets bottom="8.0" left="8.0" right="8.0" top="8.0" />
                </padding>

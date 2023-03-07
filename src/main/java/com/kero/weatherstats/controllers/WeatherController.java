@@ -7,6 +7,7 @@ import com.kero.weatherstats.dao.WeatherDataDaoImpl;
 import com.kero.weatherstats.model.*;
 import io.github.palexdev.materialfx.controls.MFXComboBox;
 import io.github.palexdev.materialfx.controls.MFXDatePicker;
+import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -40,6 +41,8 @@ public class WeatherController {
     @FXML private MFXComboBox<String> typeComboBox;
 
     public void initialize() {
+
+        // Initialize DAOs
         WeatherDataDao weatherDataDao = new WeatherDataDaoImpl();
         StationDao stationDao = new StationDaoImpl();
 
@@ -55,29 +58,31 @@ public class WeatherController {
         typeObservableList.addAll("Temperature", "Precipitation", "Wind", "Sunshine", "Cloud cover", "Cloud height");
         typeComboBox.setItems(typeObservableList);
 
-        // Set default values
-        stationComboBox.setValue(stationObservableList.get(0));
-        typeComboBox.setValue(typeObservableList.get(0));
-        startDate.setValue(LocalDate.of(2023, 1, 1));
-        endDate.setValue(LocalDate.of(2023, 1, 31));
+        Platform.runLater(() -> { // This is needed to fix a bug where the combo boxes are not populated properly
+            // Set default values
+            stationComboBox.setValue(stationObservableList.get(0));
+            typeComboBox.setValue(typeObservableList.get(0));
+            startDate.setValue(LocalDate.of(2023, 1, 1));
+            endDate.setValue(LocalDate.of(2023, 1, 31));
 
-        stationComboBox.setOnAction(e -> updateChartData()); // Update chart data when station is changed
-        typeComboBox.setOnAction(e -> updateChartData()); // Update chart data when type is changed
+            stationComboBox.setOnAction(e -> updateChartData()); // Update chart data when station is changed
+            typeComboBox.setOnAction(e -> updateChartData()); // Update chart data when type is changed
 
-        startDate.setOnAction(e -> {
-            if(startDate.getValue().isAfter(endDate.getValue())) {
-                endDate.setValue(startDate.getValue()); // Adjust end date if start date is after end date
-            }
-            updateChartData();
+            startDate.setOnAction(e -> {
+                if(startDate.getValue().isAfter(endDate.getValue())) {
+                    endDate.setValue(startDate.getValue()); // Adjust end date if start date is after end date
+                }
+                updateChartData();
+            });
+            endDate.setOnAction(e -> {
+                if(startDate.getValue().isAfter(endDate.getValue())) {
+                    startDate.setValue(endDate.getValue()); // Adjust start date if end date is before start date
+                }
+                updateChartData();
+            });
+
+            updateChartData(); // Shows chart data from default values when the program is started
         });
-        endDate.setOnAction(e -> {
-            if(startDate.getValue().isAfter(endDate.getValue())) {
-                startDate.setValue(endDate.getValue()); // Adjust start date if end date is before start date
-            }
-            updateChartData();
-        });
-
-        updateChartData(); // Shows chart data from default values when the program is started
     }
 
     // Responsible for updating and showing the data on the line chart and the labels on the right side
