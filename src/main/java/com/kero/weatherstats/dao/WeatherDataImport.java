@@ -52,16 +52,16 @@ public class WeatherDataImport {
             for(ArrayList<String> row : data) {
                 pstmt.setInt(1, Integer.parseInt(row.get(1)));
                 pstmt.setTimestamp(2, Timestamp.valueOf(row.get(0)));
-                pstmt.setDouble(3, (row.get(2).isEmpty()) ? -1 : Double.parseDouble(row.get(2)));
-                pstmt.setDouble(4, (row.get(3).isEmpty()) ? -1 : Double.parseDouble(row.get(3)));
-                pstmt.setDouble(5, (row.get(4).isEmpty()) ? -1 : Double.parseDouble(row.get(4)));
-                pstmt.setDouble(6, (row.get(5).isEmpty()) ? -1 : Double.parseDouble(row.get(5)));
-                pstmt.setDouble(7, (row.get(6).isEmpty()) ? -1 : Double.parseDouble(row.get(6)));
-                pstmt.setDouble(8, (row.get(7).isEmpty()) ? -1 : Double.parseDouble(row.get(7)));
-                pstmt.setDouble(9, (row.get(8).isEmpty()) ? -1 : Double.parseDouble(row.get(8)));
-                pstmt.setDouble(10, (row.get(9).isEmpty()) ? -1 : Double.parseDouble(row.get(9)));
-                pstmt.setInt(11, (row.get(10).isEmpty()) ? -1 : Integer.parseInt(row.get(10)));
-                pstmt.setInt(12, (row.get(11).isEmpty()) ? -1 : Integer.parseInt(row.get(11)));
+                pstmt.setDouble(3, (row.get(2).isEmpty()) ? 0 : Double.parseDouble(row.get(2)));
+                pstmt.setDouble(4, (row.get(3).isEmpty()) ? 0 : Double.parseDouble(row.get(3)));
+                pstmt.setDouble(5, (row.get(4).isEmpty()) ? 0 : Double.parseDouble(row.get(4)));
+                pstmt.setDouble(6, (row.get(5).isEmpty()) ? 0 : Double.parseDouble(row.get(5)));
+                pstmt.setDouble(7, (row.get(6).isEmpty()) ? 0 : Double.parseDouble(row.get(6)));
+                pstmt.setDouble(8, (row.get(7).isEmpty()) ? 0 : Double.parseDouble(row.get(7)));
+                pstmt.setDouble(9, (row.get(8).isEmpty()) ? 0 : Double.parseDouble(row.get(8)));
+                pstmt.setDouble(10, (row.get(9).isEmpty()) ? 0 : Double.parseDouble(row.get(9)));
+                pstmt.setInt(11, (row.get(10).isEmpty()) ? 0 : Integer.parseInt(row.get(10)));
+                pstmt.setInt(12, (row.get(11).isEmpty()) ? 0 : Integer.parseInt(row.get(11)));
 
                 pstmt.addBatch();
             }
