@@ -13,12 +13,14 @@ import java.util.List;
 
 public class StationDaoImpl implements StationDao{
 
+    //This connects us to the database
     private final DatabaseConnector databaseConnector;
 
     public StationDaoImpl() {
         databaseConnector = new DatabaseConnector();
     }
 
+    //This gets us the list of stations from our database, with all the columns
     @Override
     public ArrayList<Station> getAllStations() {
         ArrayList<Station> stations = new ArrayList<>();

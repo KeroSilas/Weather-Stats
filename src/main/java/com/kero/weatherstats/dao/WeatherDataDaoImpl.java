@@ -8,12 +8,14 @@ import java.util.ArrayList;
 
 public class WeatherDataDaoImpl implements WeatherDataDao{
 
+    //This connects us to the database
     private final DatabaseConnector databaseConnector;
 
     public WeatherDataDaoImpl() {
         databaseConnector = new DatabaseConnector();
     }
 
+    //This gets us the list of WeatherData from our database, with all the columns
     @Override
     public ArrayList<WeatherData> getAllWeatherData() {
         ArrayList<WeatherData> weatherdata = new ArrayList<>();
