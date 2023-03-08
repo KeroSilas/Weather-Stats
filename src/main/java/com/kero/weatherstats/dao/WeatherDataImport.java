@@ -30,8 +30,8 @@ public class WeatherDataImport {
             for(ArrayList<String> row : set) {
                 pstmt.setInt(1, Integer.parseInt(row.get(1)));
                 pstmt.setString(2, row.get(0));
-                pstmt.setString(3, row.get(2).replace("\u0019", ""));
-                pstmt.setDouble(4, Double.parseDouble(row.get(3).replace("\"", "").replace(",", ".")));
+                pstmt.setString(3, row.get(2).replace("\u0019", "")); // Remove the weird character
+                pstmt.setDouble(4, Double.parseDouble(row.get(3).replace("\"", "").replace(",", "."))); // Remove the quotes and replace the comma with a dot
                 pstmt.setString(5, row.get(4));
                 pstmt.addBatch();
             }

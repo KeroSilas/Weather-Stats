@@ -17,12 +17,13 @@ public class TextParser {
         try {
             Scanner sc = new Scanner(new File(fileName));
 
+            // Read the file line by line
             while (sc.hasNextLine()) {
-                String line = sc.nextLine();
-                String[] tokens = line.split("\t", -1);
+                String line = sc.nextLine(); // Read the line
+                String[] tokens = line.split("\t", -1); // -1 to keep empty strings
 
-                ArrayList<String> row = new ArrayList<>(Arrays.asList(tokens));
-                data.add(row);
+                ArrayList<String> row = new ArrayList<>(Arrays.asList(tokens)); // Convert the array to an ArrayList
+                data.add(row); // Add the row to the data
             }
             sc.close();
         } catch (FileNotFoundException e) {
